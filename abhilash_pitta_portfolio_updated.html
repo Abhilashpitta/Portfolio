@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abhilash Pitta — Software Engineering & Technology Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-0:#070b13;
+    --bg-1:#0b101c;
+    --bg-panel:#101729;
+    --bg-panel-2:#141d33;
+    --line:#1d2942;
+    --line-soft:#161f35;
+    --text-0:#eef1f7;
+    --text-1:#aab3c5;
+    --text-2:#717d96;
+    --cyan:#52e0c4;
+    --cyan-dim:#2c5e57;
+    --amber:#f0a256;
+    --amber-dim:#5a4029;
+    --radius:10px;
+    --display:'Space Grotesk',sans-serif;
+    --body:'Inter',sans-serif;
+    --mono:'JetBrains Mono',monospace;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg-0);
+    color:var(--text-0);
+    font-family:var(--body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image:
+      linear-gradient(var(--line-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+    background-size:64px 64px;
+    opacity:0.35;
+    pointer-events:none;
+    z-index:0;
+    mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, black 0%, transparent 70%);
+  }
+
+  a{color:inherit;text-decoration:none;}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px;position:relative;z-index:1;}
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--cyan);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+
+  .eyebrow .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--cyan);
+    box-shadow:0 0 8px var(--cyan);
+    animation:pulse 2.4s ease-in-out infinite;
+  }
+
+  @keyframes pulse{
+    0%,100%{opacity:1;}
+    50%{opacity:0.35;}
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:50;
+    backdrop-filter:blur(14px);
+    background:rgba(7,11,19,0.72);
+    border-bottom:1px solid var(--line);
+  }
+
+  .nav-inner{
+    max-width:1080px;
+    margin:0 auto;
+    padding:18px 32px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+
+  .logo{
+    font-family:var(--mono);
+    font-size:15px;
+    font-weight:600;
+    letter-spacing:0.02em;
+  }
+  .logo span{color:var(--cyan);}
+
+  .nav-links{
+    display:flex;
+    gap:32px;
+    font-family:var(--mono);
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--text-1);
+  }
+  .nav-links a{transition:color 0.2s;}
+  .nav-links a:hover{color:var(--cyan);}
+
+  .nav-toggle{display:none;}
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    position:relative;
+    padding:172px 0 96px;
+    overflow:hidden;
+  }
+
+  .signal-line{
+    position:absolute;
+    bottom:0; left:0; right:0;
+    height:46%;
+    opacity:0.55;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .hero-grid{
+    position:relative;
+    z-index:1;
+    display:grid;
+    grid-template-columns:1.5fr 1fr;
+    gap:48px;
+    align-items:end;
+  }
+
+  h1.name{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(44px, 6.4vw, 78px);
+    line-height:1.02;
+    letter-spacing:-0.01em;
+    margin:18px 0 10px;
+  }
+
+  .role-line{
+    font-family:var(--display);
+    font-size:clamp(17px, 2vw, 22px);
+    color:var(--text-1);
+    font-weight:500;
+    max-width:560px;
+  }
+
+  .role-line strong{color:var(--text-0);font-weight:600;}
+
+  .status-panel{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:20px;
+    font-family:var(--mono);
+    font-size:12.5px;
+  }
+
+  .status-row{
+    display:flex;
+    justify-content:space-between;
+    padding:9px 0;
+    border-bottom:1px solid var(--line-soft);
+    color:var(--text-1);
+  }
+  .status-row:last-child{border-bottom:none;}
+  .status-row b{color:var(--text-0);font-weight:500;}
+
+  .status-active{
+    color:var(--cyan);
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .status-active::before{
+    content:'';
+    width:6px;height:6px;border-radius:50%;
+    background:var(--cyan);
+    box-shadow:0 0 6px var(--cyan);
+  }
+
+  .hero-meta{
+    margin-top:28px;
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+
+  .meta-chip{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-1);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:7px 12px;
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{
+    padding:90px 0;
+    border-top:1px solid var(--line);
+    position:relative;
+    z-index:1;
+  }
+
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:44px;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+
+  .section-title{
+    font-family:var(--display);
+    font-size:28px;
+    font-weight:600;
+  }
+
+  .tag{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:4px 10px;
+    border-radius:5px;
+    border:1px solid currentColor;
+  }
+
+  .tag-live{color:var(--cyan); background:rgba(82,224,196,0.08);}
+  .tag-done{color:var(--amber); background:rgba(240,162,86,0.08);}
+  .tag-archived{color:var(--text-2); background:rgba(113,125,150,0.06);}
+  .tag-verified{color:var(--cyan); background:rgba(82,224,196,0.08);}
+
+  /* ---------- EXPERIENCE ---------- */
+  .card{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:30px 32px;
+  }
+
+  .card + .card{margin-top:18px;}
+
+  .card-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-bottom:14px;
+  }
+
+  .card-title{
+    font-family:var(--display);
+    font-size:20px;
+    font-weight:600;
+  }
+
+  .card-sub{
+    color:var(--text-1);
+    font-size:14px;
+    margin-top:4px;
+  }
+
+  .card-sub b{color:var(--cyan);font-weight:600;}
+
+  .card-dates{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-2);
+    white-space:nowrap;
+  }
+
+  ul.bullets{
+    list-style:none;
+    margin-top:16px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+
+  ul.bullets li{
+    padding-left:20px;
+    position:relative;
+    color:var(--text-1);
+    font-size:14.5px;
+  }
+
+  ul.bullets li::before{
+    content:'›';
+    position:absolute;
+    left:0;
+    color:var(--cyan);
+    font-family:var(--mono);
+  }
+
+  .card-compact{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:14px;
+    padding:20px 32px;
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .project-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+  }
+
+  .project-card{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:30px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+
+  .project-card .card-top{margin-bottom:0;}
+
+  .stack-row{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+
+  .stack-chip{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--text-1);
+    background:var(--bg-panel-2);
+    border:1px solid var(--line);
+    padding:5px 10px;
+    border-radius:5px;
+  }
+
+  .project-desc{
+    color:var(--text-1);
+    font-size:14.5px;
+    flex-grow:1;
+  }
+
+  .project-foot{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:14px;
+    border-top:1px solid var(--line-soft);
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--text-2);
+  }
+
+  /* ---------- TECH STACK ---------- */
+  .stack-panel{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+  }
+
+  .stack-group{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:24px 26px;
+  }
+
+  .stack-group h4{
+    font-family:var(--mono);
+    font-size:11.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--text-2);
+    margin-bottom:14px;
+  }
+
+  .chip-row{display:flex;flex-wrap:wrap;gap:8px;}
+
+  .chip{
+    font-size:13.5px;
+    color:var(--text-0);
+    background:var(--bg-panel-2);
+    border:1px solid var(--line);
+    padding:7px 13px;
+    border-radius:20px;
+  }
+
+  /* ---------- EDUCATION TIMELINE ---------- */
+  .timeline{
+    position:relative;
+    padding-left:28px;
+    border-left:1px solid var(--line);
+  }
+
+  .tl-item{
+    position:relative;
+    padding-bottom:38px;
+  }
+  .tl-item:last-child{padding-bottom:0;}
+
+  .tl-item::before{
+    content:'';
+    position:absolute;
+    left:-33px;
+    top:4px;
+    width:10px;height:10px;
+    border-radius:50%;
+    background:var(--bg-0);
+    border:2px solid var(--cyan);
+  }
+
+  .tl-head{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:6px;
+  }
+
+  .tl-title{
+    font-family:var(--display);
+    font-size:17px;
+    font-weight:600;
+  }
+
+  .tl-date{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-2);
+  }
+
+  .tl-meta{
+    color:var(--text-1);
+    font-size:14px;
+  }
+
+  .gpa-tag{
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--amber);
+    margin-top:6px;
+    display:inline-block;
+  }
+
+  /* ---------- CERTIFICATIONS ---------- */
+  .cert-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+  }
+
+  .cert-card{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:20px 22px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+
+  .cert-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:10px;
+  }
+
+  .cert-title{
+    font-size:14.5px;
+    font-weight:600;
+    color:var(--text-0);
+  }
+
+  .cert-issuer{
+    font-size:13px;
+    color:var(--text-1);
+  }
+
+  .cert-date{
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--text-2);
+  }
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{
+    padding:80px 0 50px;
+    border-top:1px solid var(--line);
+    position:relative;
+    z-index:1;
+  }
+
+  .contact-grid{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    flex-wrap:wrap;
+    gap:32px;
+  }
+
+  .contact-title{
+    font-family:var(--display);
+    font-size:clamp(30px,4vw,44px);
+    font-weight:600;
+    max-width:520px;
+  }
+
+  .contact-links{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    font-family:var(--mono);
+    font-size:13.5px;
+  }
+
+  .contact-links a{
+    color:var(--text-1);
+    transition:color 0.2s;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .contact-links a:hover{color:var(--cyan);}
+  .contact-links a::before{content:'↗';color:var(--text-2);font-size:11px;}
+
+  .foot-bottom{
+    margin-top:64px;
+    padding-top:24px;
+    border-top:1px solid var(--line-soft);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--text-2);
+  }
+
+  /* ---------- REVEAL ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+    .reveal{opacity:1;transform:none;}
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr;}
+    .project-grid{grid-template-columns:1fr;}
+    .stack-panel{grid-template-columns:1fr;}
+    .cert-grid{grid-template-columns:1fr;}
+    .nav-links{display:none;}
+    header.hero{padding:140px 0 70px;}
+  }
+
+  @media (max-width:480px){
+    .wrap{padding:0 20px;}
+    .card{padding:24px 22px;}
+    .project-card{padding:24px;}
+  }
+
+  :focus-visible{
+    outline:2px solid var(--cyan);
+    outline-offset:3px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">AP<span>_</span></div>
+    <div class="nav-links">
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#stack">Stack</a>
+      <a href="#education">Education</a>
+      <a href="#certifications">Certs</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <svg class="signal-line" viewBox="0 0 1080 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#52e0c4" stop-opacity="0"/>
+        <stop offset="100%" stop-color="#52e0c4" stop-opacity="0.12"/>
+      </linearGradient>
+    </defs>
+    <path id="sigPath" d="M0,160 C60,150 90,80 150,90 C210,100 240,170 300,165 C360,160 380,60 440,55 C500,50 520,150 580,150 C640,150 660,40 720,45 C780,50 800,140 860,135 C920,130 950,70 1010,75 C1040,77 1060,90 1080,95"
+      fill="none" stroke="#52e0c4" stroke-width="1.6" opacity="0.75"/>
+    <path d="M0,160 C60,150 90,80 150,90 C210,100 240,170 300,165 C360,160 380,60 440,55 C500,50 520,150 580,150 C640,150 660,40 720,45 C780,50 800,140 860,135 C920,130 950,70 1010,75 C1040,77 1060,90 1080,95 L1080,220 L0,220 Z"
+      fill="url(#fade)" stroke="none"/>
+  </svg>
+
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow"><span class="dot"></span>SYSTEM ONLINE · HYDERABAD, IN</span>
+        <h1 class="name">Abhilash Pitta</h1>
+        <p class="role-line">B.Tech Computer Science graduate with hands-on industry experience in <strong>data operations</strong>, supported by projects across <strong>machine learning</strong>, web development, and data-driven applications. Interested in software engineering, system design, and IT infrastructure.</p>
+
+        <div class="hero-meta">
+          <span class="meta-chip">Python · Java · C++</span>
+          <span class="meta-chip">Machine Learning · Data Preprocessing</span>
+          <span class="meta-chip">HTML · CSS · JavaScript · SQL</span>
+        </div>
+      </div>
+
+      <div class="status-panel">
+        <div class="status-row"><span>ROLE</span><b>KPO Analyst</b></div>
+        <div class="status-row"><span>CLIENT</span><b>Google</b></div>
+        <div class="status-row"><span>EMPLOYER</span><b>Virtusa Consulting</b></div>
+        <div class="status-row"><span>PERIOD</span><b>Dec 2025 — Sep 2026</b></div>
+        <div class="status-row"><span>STATUS</span><b class="status-active">Completed</b></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-title">Work Experience</span>
+      <span class="tag tag-done">Experience</span>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-top">
+        <div>
+          <div class="card-title">KPO Analyst</div>
+          <div class="card-sub">Virtusa Consulting Services · Client: <b>Google</b></div>
+        </div>
+        <div class="card-dates">Dec 2025 — Sep 2026</div>
+      </div>
+      <ul class="bullets">
+        <li>Support Google account operations by processing, reviewing, and analyzing large volumes of data against quality and turnaround-time standards.</li>
+        <li>Apply quality-check protocols to keep daily deliverables accurate, consistent, and compliant.</li>
+        <li>Work with team leads and stakeholders to resolve discrepancies and meet SLA commitments.</li>
+        <li>Flag recurring issues and propose process improvements to lift operational efficiency.</li>
+      </ul>
+    </div>
+
+    <div class="card card-compact reveal">
+      <div>
+        <div class="card-title" style="font-size:16px;">Web Development Intern</div>
+        <div class="card-sub">VaultofCodes.in</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <span class="card-dates">Feb 2024</span>
+        <span class="tag tag-archived">Archived</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-title">Projects</span>
+      <span class="tag tag-done">Completed</span>
+    </div>
+
+    <div class="project-grid">
+      <div class="project-card reveal">
+        <div class="card-top">
+          <div>
+            <div class="card-title">Flood Forecasting using ML</div>
+            <div class="card-sub">Aug 2024 — Nov 2024</div>
+          </div>
+        </div>
+        <div class="stack-row">
+          <span class="stack-chip">Pandas</span>
+          <span class="stack-chip">NumPy</span>
+          <span class="stack-chip">scikit-learn</span>
+          <span class="stack-chip">XGBoost</span>
+        </div>
+        <p class="project-desc">Built a flood-risk prediction model using Random Forest and XGBoost on rainfall and river-level data. Preprocessed time-series inputs and engineered features to improve prediction accuracy and reliability, enabling early-warning alerts and risk visualization for proactive disaster management.</p>
+        <div class="project-foot">
+          <span>TYPE: PREDICTIVE MODELING</span>
+          <span class="tag tag-done">Completed</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="card-top">
+          <div>
+            <div class="card-title">Navigating the Path to Academic Success</div>
+            <div class="card-sub">Dec 2024 — Apr 2025</div>
+          </div>
+        </div>
+        <div class="stack-row">
+          <span class="stack-chip">Python</span>
+          <span class="stack-chip">Django</span>
+          <span class="stack-chip">MySQL</span>
+          <span class="stack-chip">JavaScript</span>
+        </div>
+        <p class="project-desc">A personalized recommendation system that guides students toward academic-success strategies based on performance, learning style, and study habits. Uses data analysis to surface patterns and an intuitive interface to visualize progress, track goals, and suggest tailored resources.</p>
+        <div class="project-foot">
+          <span>TYPE: FULL-STACK + RECOMMENDER</span>
+          <span class="tag tag-done">Completed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-title">Technologies</span>
+      <span class="tag tag-verified">Certifications</span>
+    </div>
+
+    <div class="stack-panel">
+      <div class="stack-group reveal">
+        <h4>Programming Languages</h4>
+        <div class="chip-row">
+          <span class="chip">Python</span><span class="chip">Java</span><span class="chip">C</span><span class="chip">C++</span>
+        </div>
+      </div>
+      <div class="stack-group reveal">
+        <h4>Web Development</h4>
+        <div class="chip-row">
+          <span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span>
+        </div>
+      </div>
+      <div class="stack-group reveal">
+        <h4>Database Management</h4>
+        <div class="chip-row">
+          <span class="chip">SQL</span><span class="chip">MySQL</span>
+        </div>
+      </div>
+      <div class="stack-group reveal">
+        <h4>Machine Learning</h4>
+        <div class="chip-row">
+          <span class="chip">Algorithms</span><span class="chip">Model Development</span><span class="chip">Data Preprocessing</span>
+        </div>
+      </div>
+      <div class="stack-group reveal">
+        <h4>Version Control</h4>
+        <div class="chip-row">
+          <span class="chip">Git</span><span class="chip">GitHub</span>
+        </div>
+      </div>
+      <div class="stack-group reveal">
+        <h4>Systems</h4>
+        <div class="chip-row">
+          <span class="chip">Windows</span><span class="chip">Linux</span><span class="chip">IT Infrastructure</span>
+        </div>
+      </div>
+    </div>
+
+<section id="education">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-title">Education</span>
+    </div>
+
+    <div class="timeline reveal">
+      <div class="tl-item">
+        <div class="tl-head">
+          <span class="tl-title">B.Tech, Computer Science Engineering</span>
+          <span class="tl-date">Dec 2021 — Jun 2025</span>
+        </div>
+        <div class="tl-meta">Jayamukhi Institute of Technological Sciences</div>
+        <div class="tl-meta">Coursework: Data Structures and Algorithms, Database Management Systems, Operating Systems, Core Language</div>
+        <span class="gpa-tag">GPA 7.26 / 10.0</span>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-head">
+          <span class="tl-title">SR Junior College</span>
+          <span class="tl-date">Jun 2019 — Mar 2021</span>
+        </div>
+        <span class="gpa-tag">GPA 6.38 / 10.0</span>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-head">
+          <span class="tl-title">Indian High School</span>
+          <span class="tl-date">Jun 2018 — Mar 2019</span>
+        </div>
+        <span class="gpa-tag">GPA 8.7 / 10.0</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certifications">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-title">Certifications</span>
+      <span class="tag tag-verified">Certifications</span>
+    </div>
+
+    <div class="cert-grid">
+      <div class="cert-card reveal">
+        <div class="cert-top">
+          <span class="cert-title">Data Analytics &amp; Visualization Job Simulation</span>
+        </div>
+        <span class="cert-issuer">Accenture North America · Forage</span>
+        <span class="cert-date">June 2025</span>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-top">
+          <span class="cert-title">Australia's Data Analytics</span>
+        </div>
+        <span class="cert-issuer">Deloitte</span>
+        <span class="cert-date">June 2025</span>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-top">
+          <span class="cert-title">Data Analytics Essentials</span>
+        </div>
+        <span class="cert-issuer">Cisco Networking Academy</span>
+        <span class="cert-date">December 2024</span>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-top">
+          <span class="cert-title">Java Fundamentals</span>
+        </div>
+        <span class="cert-issuer">Infosys Springboard</span>
+        <span class="cert-date">January 2024</span>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-top">
+          <span class="cert-title">Course Completion, Python</span>
+        </div>
+        <span class="cert-issuer">Kaggle</span>
+        <span class="cert-date">June 2023</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact-grid reveal">
+      <div class="contact-title">Open to opportunities in software engineering, data, system design, and IT infrastructure.</div>
+      <div class="contact-links">
+        <a href="mailto:pittaabhilash273@gmail.com">pittaabhilash273@gmail.com</a>
+        <a href="tel:+919063953698">+91 90639 53698</a>
+        <a href="https://linkedin.com/in/Abhilashpitta" target="_blank" rel="noopener">linkedin.com/in/Abhilashpitta</a>
+        <a href="https://github.com/abhilashpitta" target="_blank" rel="noopener">github.com/abhilashpitta</a>
+        <a href="mailto:pittaabhilash273@gmail.com?subject=Portfolio%20Opportunity">Let’s connect</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>HYDERABAD, INDIA</span>
+      <span>© 2026 ABHILASH PITTA</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+
+  // gentle ambient drift on the signal line
+  const path = document.getElementById('sigPath');
+  if(path && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    let t = 0;
+    function drift(){
+      t += 0.004;
+      const dy = Math.sin(t) * 4;
+      path.setAttribute('transform', `translate(0, ${dy})`);
+      requestAnimationFrame(drift);
+    }
+    drift();
+  }
+</script>
+
+</body>
+</html>
